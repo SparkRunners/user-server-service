@@ -14,18 +14,21 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    # steps:    
-    # - name: Checkout repository
-    #   uses: actions/checkout@v4
+    steps:    
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-    # - name: Setup Node.js 22.11.0
-    #   uses: actions/setup-node@v4
-    #   with:
-    #     node-version: '22.11.0'
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22.12.0'
 
-    # - name: Install dependencies
-    #   run: npm ci
-    #   working-directory: ./
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run ESLint
+      run: npm run lint
+      working-directory: ./
 
     # - name: Run build
     #   run: npm run build --if-present
@@ -35,6 +38,3 @@ jobs:
     #   run: npm test
     #   working-directory: ./
 
-    # - name: Run ESLint
-    #   run: npm run lint
-    #   working-directory: ./
