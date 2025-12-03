@@ -1,0 +1,254 @@
+[
+  {
+    "id": 1,
+    "status": "available",
+    "battery": 87,
+    "position": {
+      "lat": 59.3325,
+      "lng": 18.0686,
+      "address": "T-Centralen, Stockholm"
+    },
+    "city_id": 1,
+    "speed": 0
+  },
+  {
+    "id": 2,
+    "status": "in_use",
+    "battery": 42,
+    "position": {
+      "lat": 59.3341,
+      "lng": 18.0623,
+      "address": "Kungsgatan, Stockholm"
+    },
+    "city_id": 1,
+    "user_id": 5,
+    "trip_start": "2024-12-02T14:20:00Z",
+    "speed": 15
+  },
+  {
+    "id": 3,
+    "status": "charging",
+    "battery": 23,
+    "position": {
+      "lat": 59.3311,
+      "lng": 18.0701,
+      "address": "Slussen, Stockholm"
+    },
+    "city_id": 1,
+    "station_id": 2,
+    "speed": 0
+  },
+  {
+    "id": 4,
+    "status": "maintenance",
+    "battery": 0,
+    "position": {
+      "lat": 59.3326,
+      "lng": 18.0649,
+      "address": "Sergels Torg, Stockholm"
+    },
+    "city_id": 1,
+    "speed": 0
+  },
+  {
+    "id": 5,
+    "status": "available",
+    "battery": 95,
+    "position": {
+      "lat": 59.3266,
+      "lng": 18.0719,
+      "address": "Gamla Stan, Stockholm"
+    },
+    "city_id": 1,
+    "speed": 0
+  },
+  {
+    "id": 6,
+    "status": "available",
+    "battery": 78,
+    "position": {
+      "lat": 59.3165,
+      "lng": 18.0765,
+      "address": "Södermalm, Stockholm"
+    },
+    "city_id": 1,
+    "speed": 0
+  },
+  {
+    "id": 7,
+    "status": "in_use",
+    "battery": 56,
+    "position": {
+      "lat": 59.3401,
+      "lng": 18.0550,
+      "address": "Vasastan, Stockholm"
+    },
+    "city_id": 1,
+    "user_id": 12,
+    "trip_start": "2024-12-02T15:05:00Z",
+    "speed": 12
+  },
+  {
+    "id": 8,
+    "status": "available",
+    "battery": 42,
+    "position": {
+      "lat": 59.3472,
+      "lng": 18.0735,
+      "address": "Östermalm, Stockholm"
+    },
+    "city_id": 1,
+    "speed": 0
+  },
+  {
+    "id": 9,
+    "status": "charging",
+    "battery": 18,
+    "position": {
+      "lat": 59.3500,
+      "lng": 18.0750,
+      "address": "Karlaplan, Stockholm"
+    },
+    "city_id": 1,
+    "station_id": 1,
+    "speed": 0
+  },
+  {
+    "id": 10,
+    "status": "available",
+    "battery": 91,
+    "position": {
+      "lat": 59.3200,
+      "lng": 18.0580,
+      "address": "Hornstull, Stockholm"
+    },
+    "city_id": 1,
+    "speed": 0
+  },
+  {
+    "id": 11,
+    "status": "available",
+    "battery": 88,
+    "position": {
+      "lat": 57.7089,
+      "lng": 11.9746,
+      "address": "Nordstan, Göteborg"
+    },
+    "city_id": 2,
+    "speed": 0
+  },
+  {
+    "id": 12,
+    "status": "in_use",
+    "battery": 67,
+    "position": {
+      "lat": 57.7000,
+      "lng": 11.9670,
+      "address": "Avenyn, Göteborg"
+    },
+    "city_id": 2,
+    "user_id": 8,
+    "trip_start": "2024-12-02T14:50:00Z",
+    "speed": 18
+  },
+  {
+    "id": 13,
+    "status": "available",
+    "battery": 73,
+    "position": {
+      "lat": 57.6878,
+      "lng": 11.9790,
+      "address": "Linnéplatsen, Göteborg"
+    },
+    "city_id": 2,
+    "speed": 0
+  },
+  {
+    "id": 14,
+    "status": "charging",
+    "battery": 15,
+    "position": {
+      "lat": 57.7100,
+      "lng": 11.9850,
+      "address": "Heden, Göteborg"
+    },
+    "city_id": 2,
+    "station_id": 5,
+    "speed": 0
+  },
+  {
+    "id": 15,
+    "status": "available",
+    "battery": 82,
+    "position": {
+      "lat": 57.7200,
+      "lng": 11.9400,
+      "address": "Majorna, Göteborg"
+    },
+    "city_id": 2,
+    "speed": 0
+  },
+  {
+    "id": 16,
+    "status": "available",
+    "battery": 94,
+    "position": {
+      "lat": 55.6050,
+      "lng": 13.0038,
+      "address": "Stortorget, Malmö"
+    },
+    "city_id": 3,
+    "speed": 0
+  },
+  {
+    "id": 17,
+    "status": "in_use",
+    "battery": 58,
+    "position": {
+      "lat": 55.5950,
+      "lng": 13.0100,
+      "address": "Möllevången, Malmö"
+    },
+    "city_id": 3,
+    "user_id": 15,
+    "trip_start": "2024-12-02T15:30:00Z",
+    "speed": 14
+  },
+  {
+    "id": 18,
+    "status": "available",
+    "battery": 71,
+    "position": {
+      "lat": 55.6100,
+      "lng": 12.9950,
+      "address": "Västra Hamnen, Malmö"
+    },
+    "city_id": 3,
+    "speed": 0
+  },
+  {
+    "id": 19,
+    "status": "maintenance",
+    "battery": 0,
+    "position": {
+      "lat": 55.5980,
+      "lng": 13.0070,
+      "address": "Triangeln, Malmö"
+    },
+    "city_id": 3,
+    "speed": 0
+  },
+  {
+    "id": 20,
+    "status": "charging",
+    "battery": 22,
+    "position": {
+      "lat": 55.6000,
+      "lng": 13.0000,
+      "address": "Centralstation, Malmö"
+    },
+    "city_id": 3,
+    "station_id": 8,
+    "speed": 0
+  }
+]
