@@ -26,7 +26,7 @@ function setupSwagger(app) {
       security: [],
     },
     apis: ["./app.js",
-      "./routes/authRoutes.js"
+      "./routes/baseRoutes.js"
     ],
   };
 
