@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 const setupSwagger = require("./utils/swagger");
 
 
-setupSwagger(app, PORT);
+setupSwagger(app);
 // GET / - fetch astring as a swager docs example
 /**
  * @swagger

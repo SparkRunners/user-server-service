@@ -1,7 +1,7 @@
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
-function setupSwagger(app, port) {
+function setupSwagger(app) {
   const apiUrl = process.env.API_URL;;
   const options = {
     definition: {
