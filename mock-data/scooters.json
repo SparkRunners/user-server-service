@@ -1,254 +1,242 @@
 [
   {
     "id": 1,
-    "status": "available",
-    "battery": 87,
-    "position": {
-      "lat": 59.3325,
-      "lng": 18.0686,
-      "address": "T-Centralen, Stockholm"
+    "name": "SparkRunners#1",
+    "city": "Stockholm",
+    "coordinates": {
+      "longitude": 18.0686,
+      "latitude": 59.3293
     },
-    "city_id": 1,
-    "speed": 0
+    "battery": 87,
+    "speed": 0,
+    "status": "Available"
   },
   {
     "id": 2,
-    "status": "in_use",
-    "battery": 42,
-    "position": {
-      "lat": 59.3341,
-      "lng": 18.0623,
-      "address": "Kungsgatan, Stockholm"
+    "name": "SparkRunners#2",
+    "city": "Stockholm",
+    "coordinates": {
+      "longitude": 18.0623,
+      "latitude": 59.3341
     },
-    "city_id": 1,
-    "user_id": 5,
-    "trip_start": "2024-12-02T14:20:00Z",
-    "speed": 15
+    "battery": 42,
+    "speed": 15,
+    "status": "In use"
   },
   {
     "id": 3,
-    "status": "charging",
-    "battery": 23,
-    "position": {
-      "lat": 59.3311,
-      "lng": 18.0701,
-      "address": "Slussen, Stockholm"
+    "name": "SparkRunners#3",
+    "city": "Stockholm",
+    "coordinates": {
+      "longitude": 18.0701,
+      "latitude": 59.3311
     },
-    "city_id": 1,
-    "station_id": 2,
-    "speed": 0
+    "battery": 23,
+    "speed": 0,
+    "status": "Charging"
   },
   {
     "id": 4,
-    "status": "maintenance",
-    "battery": 0,
-    "position": {
-      "lat": 59.3326,
-      "lng": 18.0649,
-      "address": "Sergels Torg, Stockholm"
+    "name": "SparkRunners#4",
+    "city": "Stockholm",
+    "coordinates": {
+      "longitude": 18.0649,
+      "latitude": 59.3326
     },
-    "city_id": 1,
-    "speed": 0
+    "battery": 0,
+    "speed": 0,
+    "status": "Maintenance"
   },
   {
     "id": 5,
-    "status": "available",
-    "battery": 95,
-    "position": {
-      "lat": 59.3266,
-      "lng": 18.0719,
-      "address": "Gamla Stan, Stockholm"
+    "name": "SparkRunners#5",
+    "city": "Stockholm",
+    "coordinates": {
+      "longitude": 18.0719,
+      "latitude": 59.3266
     },
-    "city_id": 1,
-    "speed": 0
+    "battery": 95,
+    "speed": 0,
+    "status": "Available"
   },
   {
     "id": 6,
-    "status": "available",
-    "battery": 78,
-    "position": {
-      "lat": 59.3165,
-      "lng": 18.0765,
-      "address": "Södermalm, Stockholm"
+    "name": "SparkRunners#6",
+    "city": "Göteborg",
+    "coordinates": {
+      "longitude": 11.9746,
+      "latitude": 57.7089
     },
-    "city_id": 1,
-    "speed": 0
+    "battery": 88,
+    "speed": 0,
+    "status": "Available"
   },
   {
     "id": 7,
-    "status": "in_use",
-    "battery": 56,
-    "position": {
-      "lat": 59.3401,
-      "lng": 18.0550,
-      "address": "Vasastan, Stockholm"
+    "name": "SparkRunners#7",
+    "city": "Göteborg",
+    "coordinates": {
+      "longitude": 11.9670,
+      "latitude": 57.7000
     },
-    "city_id": 1,
-    "user_id": 12,
-    "trip_start": "2024-12-02T15:05:00Z",
-    "speed": 12
+    "battery": 67,
+    "speed": 18,
+    "status": "In use"
   },
   {
     "id": 8,
-    "status": "available",
-    "battery": 42,
-    "position": {
-      "lat": 59.3472,
-      "lng": 18.0735,
-      "address": "Östermalm, Stockholm"
+    "name": "SparkRunners#8",
+    "city": "Göteborg",
+    "coordinates": {
+      "longitude": 11.9790,
+      "latitude": 57.6878
     },
-    "city_id": 1,
-    "speed": 0
+    "battery": 73,
+    "speed": 0,
+    "status": "Available"
   },
   {
     "id": 9,
-    "status": "charging",
-    "battery": 18,
-    "position": {
-      "lat": 59.3500,
-      "lng": 18.0750,
-      "address": "Karlaplan, Stockholm"
+    "name": "SparkRunners#9",
+    "city": "Göteborg",
+    "coordinates": {
+      "longitude": 11.9850,
+      "latitude": 57.7100
     },
-    "city_id": 1,
-    "station_id": 1,
-    "speed": 0
+    "battery": 15,
+    "speed": 0,
+    "status": "Charging"
   },
   {
     "id": 10,
-    "status": "available",
-    "battery": 91,
-    "position": {
-      "lat": 59.3200,
-      "lng": 18.0580,
-      "address": "Hornstull, Stockholm"
+    "name": "SparkRunners#10",
+    "city": "Malmö",
+    "coordinates": {
+      "longitude": 13.0038,
+      "latitude": 55.6050
     },
-    "city_id": 1,
-    "speed": 0
+    "battery": 94,
+    "speed": 0,
+    "status": "Available"
   },
   {
     "id": 11,
-    "status": "available",
-    "battery": 88,
-    "position": {
-      "lat": 57.7089,
-      "lng": 11.9746,
-      "address": "Nordstan, Göteborg"
+    "name": "SparkRunners#11",
+    "city": "Malmö",
+    "coordinates": {
+      "longitude": 13.0100,
+      "latitude": 55.5950
     },
-    "city_id": 2,
-    "speed": 0
+    "battery": 58,
+    "speed": 14,
+    "status": "In use"
   },
   {
     "id": 12,
-    "status": "in_use",
-    "battery": 67,
-    "position": {
-      "lat": 57.7000,
-      "lng": 11.9670,
-      "address": "Avenyn, Göteborg"
+    "name": "SparkRunners#12",
+    "city": "Malmö",
+    "coordinates": {
+      "longitude": 12.9950,
+      "latitude": 55.6100
     },
-    "city_id": 2,
-    "user_id": 8,
-    "trip_start": "2024-12-02T14:50:00Z",
-    "speed": 18
+    "battery": 71,
+    "speed": 0,
+    "status": "Available"
   },
   {
     "id": 13,
-    "status": "available",
-    "battery": 73,
-    "position": {
-      "lat": 57.6878,
-      "lng": 11.9790,
-      "address": "Linnéplatsen, Göteborg"
+    "name": "SparkRunners#13",
+    "city": "Malmö",
+    "coordinates": {
+      "longitude": 13.0070,
+      "latitude": 55.5980
     },
-    "city_id": 2,
-    "speed": 0
+    "battery": 0,
+    "speed": 0,
+    "status": "Maintenance"
   },
   {
     "id": 14,
-    "status": "charging",
-    "battery": 15,
-    "position": {
-      "lat": 57.7100,
-      "lng": 11.9850,
-      "address": "Heden, Göteborg"
+    "name": "SparkRunners#14",
+    "city": "Stockholm",
+    "coordinates": {
+      "longitude": 18.0765,
+      "latitude": 59.3165
     },
-    "city_id": 2,
-    "station_id": 5,
-    "speed": 0
+    "battery": 78,
+    "speed": 0,
+    "status": "Available"
   },
   {
     "id": 15,
-    "status": "available",
-    "battery": 82,
-    "position": {
-      "lat": 57.7200,
-      "lng": 11.9400,
-      "address": "Majorna, Göteborg"
+    "name": "SparkRunners#15",
+    "city": "Stockholm",
+    "coordinates": {
+      "longitude": 18.0550,
+      "latitude": 59.3401
     },
-    "city_id": 2,
-    "speed": 0
+    "battery": 12,
+    "speed": 16,
+    "status": "In use"
   },
   {
     "id": 16,
-    "status": "available",
-    "battery": 94,
-    "position": {
-      "lat": 55.6050,
-      "lng": 13.0038,
-      "address": "Stortorget, Malmö"
+    "name": "SparkRunners#16",
+    "city": "Göteborg",
+    "coordinates": {
+      "longitude": 11.9400,
+      "latitude": 57.7200
     },
-    "city_id": 3,
-    "speed": 0
+    "battery": 82,
+    "speed": 0,
+    "status": "Available"
   },
   {
     "id": 17,
-    "status": "in_use",
-    "battery": 58,
-    "position": {
-      "lat": 55.5950,
-      "lng": 13.0100,
-      "address": "Möllevången, Malmö"
+    "name": "SparkRunners#17",
+    "city": "Stockholm",
+    "coordinates": {
+      "longitude": 18.0735,
+      "latitude": 59.3472
     },
-    "city_id": 3,
-    "user_id": 15,
-    "trip_start": "2024-12-02T15:30:00Z",
-    "speed": 14
+    "battery": 45,
+    "speed": 0,
+    "status": "Available"
   },
   {
     "id": 18,
-    "status": "available",
-    "battery": 71,
-    "position": {
-      "lat": 55.6100,
-      "lng": 12.9950,
-      "address": "Västra Hamnen, Malmö"
+    "name": "SparkRunners#18",
+    "city": "Stockholm",
+    "coordinates": {
+      "longitude": 18.0580,
+      "latitude": 59.3200
     },
-    "city_id": 3,
-    "speed": 0
+    "battery": 91,
+    "speed": 0,
+    "status": "Available"
   },
   {
     "id": 19,
-    "status": "maintenance",
-    "battery": 0,
-    "position": {
-      "lat": 55.5980,
-      "lng": 13.0070,
-      "address": "Triangeln, Malmö"
+    "name": "SparkRunners#19",
+    "city": "Malmö",
+    "coordinates": {
+      "longitude": 13.0000,
+      "latitude": 55.6000
     },
-    "city_id": 3,
-    "speed": 0
+    "battery": 22,
+    "speed": 0,
+    "status": "Charging"
   },
   {
     "id": 20,
-    "status": "charging",
-    "battery": 22,
-    "position": {
-      "lat": 55.6000,
-      "lng": 13.0000,
-      "address": "Centralstation, Malmö"
+    "name": "SparkRunners#20",
+    "city": "Göteborg",
+    "coordinates": {
+      "longitude": 11.9500,
+      "latitude": 57.7050
     },
-    "city_id": 3,
-    "station_id": 8,
-    "speed": 0
+    "battery": 3,
+    "speed": 0,
+    "status": "Off"
   }
 ]
