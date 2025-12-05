@@ -20,7 +20,16 @@ const router = express.Router();
  *         description: Server error
  */
 router.get('/', (req, res) => {
-  res.send('Hello from Express! LIve NEw change testing MNow it works \n Check Api docs on route:  /api-docs/v1');
+  res.send(`<h1>Welcome to SparkRunners API</h1>
+    <p>Server is running successfully!</p><h2>Available endpoints:</h2>
+    <ul>
+      <li><a href="/api/v1/status">/api/v1/status</a> - Health check</li>
+      <li><a href="/api/v1/scooters">/api/v1/scooters</a> - Get all scooters</li>
+      <li><a href="/api/v1/scooters/1">/api/v1/scooters/1</a> - Get scooter by ID</li>
+      <li><a href="/api-docs/v1">/api-docs/v1</a> - API Documentation (Swagger)</li>
+    </ul>
+  `)
+    //res.send('Hello from Express! LIve NEw change testing MNow it works \n Check Api docs on route:  /api-docs/v1');
 });
 
 module.exports = router;
