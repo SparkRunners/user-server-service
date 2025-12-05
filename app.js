@@ -21,7 +21,7 @@ const scooterRoutes = require('./routes/scooterRoutes');
 
 // Define routes centraly
 app.use('/', baseRoutes);
-app.use('/api/vi', scooterRoutes);
+app.use('/api/v1', scooterRoutes);
 
 
 app.listen(PORT, () => {
