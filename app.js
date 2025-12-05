@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 // Require databse constant
@@ -6,12 +7,21 @@ const { connectDB } = require('./db/database');
 // Require util constants
 const setupSwagger = require("./utils/swagger");
 connectDB().catch(err => console.error("DB connect error", err));
+
+// Setup Swagger
 setupSwagger(app);
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
 // Redefine predefined routes
 const baseRoutes = require('./routes/baseRoutes');
+const scooterRoutes = require('./routes/scooterRoutes');
 
 // Define routes centraly
 app.use('/', baseRoutes);
+app.use('/api/v1', scooterRoutes);
 
 
 app.listen(PORT, () => {
