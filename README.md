@@ -27,9 +27,17 @@ Go to the vteam06-share.env in team folder.
 Paste in information from ".env file for user-server-service" to the .env file
 ```
 
+## Database
+
+**MongoDB** with Mongoose
+
+- On startup if empty, 20 scooters are added to database.
+- MongoDB ObjectId (`_id`) instead of integer `id`
+- `createdAt`, `updatedAt` timestamps added automatically
+
 ---
 
-## API Endpoints (Mock API)
+## API Endpoints
 
 **Base URL:** `http://localhost:3000/api/v1`
 
@@ -37,7 +45,7 @@ Paste in information from ".env file for user-server-service" to the .env file
 |--------|----------|-------------|--------------|
 | GET | `/status` | API status check | - |
 | GET | `/scooters` | Get all scooters | `city`, `status` |
-| GET | `/scooters/:id` | Get specific scooter | - |
+| GET | `/scooters/:id` | Get specific scooter (MongoDB _id) | - |
 
 ### Query Parameters
 
@@ -52,8 +60,8 @@ curl http://localhost:3000/api/v1/scooters
 # Filter by city
 curl "http://localhost:3000/api/v1/scooters?city=Stockholm"
 
-# Get specific scooter
-curl http://localhost:3000/api/v1/scooters/1
+# Get specific scooter using MongoDB _id
+curl http://localhost:3000/api/v1/scooters/694030d35d4b6014907b095f
 ```
 
 ---
@@ -61,7 +69,7 @@ curl http://localhost:3000/api/v1/scooters/1
 ## Data Structure
 ```json
 {
-  "id": 1,
+  "_id": "694030d35d4b6014907b095f",
   "name": "SparkRunners#1",
   "city": "Stockholm",
   "coordinates": {
@@ -70,18 +78,11 @@ curl http://localhost:3000/api/v1/scooters/1
   },
   "battery": 87,
   "speed": 0,
-  "status": "Available"
+  "status": "Available",
+  "createdAt": "2025-12-15T16:01:23.716Z",
+  "updatedAt": "2025-12-15T16:01:23.716Z"
 }
 ```
-
----
-
-## Mock Data
-
-- 20 scooters across Stockholm, Göteborg, and Malmö
-- Located in `mock-data/scooters.json`
-
----
 
 ## API Documentation
 
