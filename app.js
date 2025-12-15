@@ -36,7 +36,8 @@ async function startServer() {
     console.log('Database is empty. Adding mock scooter data.');
     const scootersData = require('./mock-data/scooters.json');
 
-    const scooters = scootersData.map(({ id, ...rest }) => rest);
+    // eslint-disable-next-line no-unused-vars
+    const scooters = scootersData.map(({ id: _, ...rest }) => rest);
     await Scooter.insertMany(scooters);
     console.log(`Added ${scooters.length} scooters.`);
   }
