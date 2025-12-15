@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 const { connectDB } = require('./db/database');
 // Require util constants
 const setupSwagger = require("./utils/swagger");
-connectDB().catch(err => console.error("DB connect error", err));
+//connectDB().catch(err => console.error("DB connect error", err));
 
 // Setup Swagger
 setupSwagger(app);
@@ -23,7 +23,36 @@ const scooterRoutes = require('./routes/scooterRoutes');
 app.use('/', baseRoutes);
 app.use('/api/v1', scooterRoutes);
 
+async function startServer() {
+  // connect to databasea
 
-app.listen(PORT, () => {
+  try {
+    await connectDB()
+
+  const Scooter = require('./models/Scooter');
+  const count = await Scooter.countDocuments();
+
+  if (count == 0) {
+    console.log('Database is empty. Adding mock scooter data.');
+    const scootersData = require('./mock-data/scooters.json');
+
+    const scooters = scootersData.map(({ id, ...rest }) => rest);
+    await Scooter.insertMany(scooters);
+    console.log(`Added ${scooters.length} scooters.`);
+  }
+
+  // Start server
+  app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+  } catch (err) {
+    console.error("Startup error:", err);
+    process.exit(1);
+  }
+  
+}
+
+startServer();
+
+
