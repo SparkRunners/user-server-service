@@ -1,6 +1,8 @@
 # User-Server-Service
 
 This repo contains all the business logic REST APIs for the Elsparkcykel app.
+## Badges for Build status and code health
+[![Node.js CI Refactoring branch](https://github.com/SparkRunners/user-server-service/actions/workflows/node-CI.js.yml/badge.svg)](https://github.com/SparkRunners/user-server-service/actions/workflows/node-CI.js.yml)
 
 ## Quick Start
 ```bash

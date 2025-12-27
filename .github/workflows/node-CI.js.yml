@@ -1,13 +1,13 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: Node.js CI Refactoring branch
+name: Node.js CI Build and test status
 
 on:
   push:
-    branches: [ "main", "dev" ]
+    branches: [ "main", "dev", "feature/middleware" ]
   pull_request:
-    branches: [ "main" , "dev"]
+    branches: [ "main" , "dev", "feature/middleware"]
 
 jobs:
   build:
@@ -30,11 +30,24 @@ jobs:
       run: npm run lint
       working-directory: ./
 
-    # - name: Run build
-    #   run: npm run build --if-present
-    #   working-directory: ./
+    - name: Run build
+      run: npm run build --if-present
+      working-directory: ./
 
     # - name: Run tests
-    #   run: npm test
+    #   env:
+        # GOOGLE_CLIENT_ID: "test"
+        # GOOGLE_CLIENT_SECRET: "test"
+        # GOOGLE_REDIRECT_URI: "http://localhost:3000/auth/google/callback"
+        # GITHUB_CLIENT_ID: "test"
+        # GITHUB_CLIENT_SECRET: "test"
+        # GITHUB_REDIRECT_URI: "http://localhost:3000/auth/github/callback"
+    #   run: npm test -- --coverage
     #   working-directory: ./
+
+    # - name: Upload results to Codecov
+    #   uses: codecov/codecov-action@v5
+    #   with:
+    #     token: ${{ secrets.CODECOV_TOKEN }}
+    #     slug: SparkRunners/auth-server-service
 
