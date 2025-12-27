@@ -4,6 +4,8 @@ This repo contains all the business logic REST APIs for the Elsparkcykel app.
 ## Badges for Build status and code health
 [![Node.js CI Refactoring branch](https://github.com/SparkRunners/user-server-service/actions/workflows/node-CI.js.yml/badge.svg)](https://github.com/SparkRunners/user-server-service/actions/workflows/node-CI.js.yml)
 
+[![codecov](https://codecov.io/github/SparkRunners/user-server-service/branch/feature%2Fmiddleware/graph/badge.svg?token=4374H8W3UD)](https://codecov.io/github/SparkRunners/user-server-service)
+
 ## Quick Start
 ```bash
 # Install dependencies
