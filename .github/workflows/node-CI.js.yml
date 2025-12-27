@@ -34,20 +34,16 @@ jobs:
       run: npm run build --if-present
       working-directory: ./
 
-    # - name: Run tests
-    #   env:
-        # GOOGLE_CLIENT_ID: "test"
-        # GOOGLE_CLIENT_SECRET: "test"
-        # GOOGLE_REDIRECT_URI: "http://localhost:3000/auth/google/callback"
-        # GITHUB_CLIENT_ID: "test"
-        # GITHUB_CLIENT_SECRET: "test"
-        # GITHUB_REDIRECT_URI: "http://localhost:3000/auth/github/callback"
-    #   run: npm test -- --coverage
-    #   working-directory: ./
+    - name: Run tests
+      env:
+        GOOGLE_CLIENT_ID: "test"
+        GOOGLE_CLIENT_SECRET: "test"
+      run: npm test -- --coverage
+      working-directory: ./
 
-    # - name: Upload results to Codecov
-    #   uses: codecov/codecov-action@v5
-    #   with:
-    #     token: ${{ secrets.CODECOV_TOKEN }}
-    #     slug: SparkRunners/auth-server-service
+    - name: Upload results to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: SparkRunners/user-server-service
 
