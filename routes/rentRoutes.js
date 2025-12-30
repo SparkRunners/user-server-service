@@ -12,7 +12,9 @@ const PRICING = require('../config/pricing');
  *     tags:
  *       - Rent
  *     summary: Start renting a scooter
- *     paramers:
+ *     securtiy:
+ *      - bearerAuth: []
+ *     parameters:
  *      - in: path
  *        name: id
  *        required: true
@@ -24,6 +26,8 @@ const PRICING = require('../config/pricing');
  *         description: Trip successfully started
  *       400:
  *         description: Scooter not available
+ *       401:
+ *         description: Unauthorized - No token provided
  *       404:
  *         description: Scooter not found
  *       500:
@@ -87,7 +91,9 @@ router.post('/start/:id', authenticateToken, async (req, res) => {
  *     tags:
  *       - Rent
  *     summary: Stop renting a scooter
- *     paramers:
+ *     security:
+ *      - bearerAuth: []
+ *     parameters:
  *      - in: path
  *        name: id
  *        required: true
