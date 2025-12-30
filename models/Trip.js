@@ -16,7 +16,7 @@ const tripSchema = new mongoose.Schema({
         default: Date.now
     },
     endTime: {
-        type: DataTransfer,
+        type: Date,
     },
     startPosition: {
         city: String,
