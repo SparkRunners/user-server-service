@@ -2,12 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Scooter = require('../models/Scooter');
 const Trip = require('../models/Trip');
-
-// Trip pricing (kr)
-const PRICING = {
-    startFee: 10,
-    perMinute: 2.5
-};
+const { authenticateToken } = require('../middleware/auth');
+const PRICING = require('../config/pricing');
 
 /**
  * @swagger
@@ -33,7 +29,7 @@ const PRICING = {
  *       500:
  *         description: Server error
  */
-router.post('/start/:id', async (req, res) => {
+router.post('/start/:id', authenticateToken, async (req, res) => {
     try {
         const scooter = await Scooter.findById(req.params.id);
 
@@ -48,11 +44,9 @@ router.post('/start/:id', async (req, res) => {
             });
         }
 
-       
-
         const trip = new Trip({
             scooterId: scooter._id,
-            // userId
+            userId: req.user.id,
             startTime: new Date(),
             startPosition: {
                 city: scooter.city,
@@ -108,7 +102,7 @@ router.post('/start/:id', async (req, res) => {
  *       500:
  *         description: Server error
  */
-router.post('/stop/:id', async (req, res) => {
+router.post('/stop/:id', authenticateToken, async (req, res) => {
     try {
         const scooter = await Scooter.findById(req.params.id);
 
@@ -125,6 +119,7 @@ router.post('/stop/:id', async (req, res) => {
         // Get active trip for scooter
         const trip = await Trip.findOne({
             scooterId: scooter._id,
+            userId: req.user.id,
             status: 'active'
         });
 
