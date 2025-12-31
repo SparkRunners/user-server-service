@@ -32,10 +32,12 @@ app.use(express.json());
 // Redefine predefined routes
 const baseRoutes = require('./routes/baseRoutes');
 const scooterRoutes = require('./routes/scooterRoutes');
+const rentRoutes = require('./routes/rentRoutes');
 
 // Define routes centraly
 app.use('/', baseRoutes);
 app.use('/api/v1', scooterRoutes);
+app.use('/api/v1/rent', rentRoutes);
 
 async function startServer() {
   // connect to databasea
