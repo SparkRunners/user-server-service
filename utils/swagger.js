@@ -23,7 +23,9 @@ function setupSwagger(app) {
           },
         },
       },
-      security: [],
+      security: [
+        { bearerAuth: [] }
+      ],
     },
     apis: ["./app.js",
       "./routes/baseRoutes.js",

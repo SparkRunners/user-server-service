@@ -12,7 +12,7 @@ const PRICING = require('../config/pricing');
  *     tags:
  *       - Rent
  *     summary: Start renting a scooter
- *     securtiy:
+ *     security:
  *      - bearerAuth: []
  *     parameters:
  *      - in: path
