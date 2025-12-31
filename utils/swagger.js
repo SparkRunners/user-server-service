@@ -26,7 +26,9 @@ function setupSwagger(app) {
       security: [],
     },
     apis: ["./app.js",
-      "./routes/baseRoutes.js"
+      "./routes/baseRoutes.js",
+      "./routes/scooterRoutes.js",
+      "./routes/rentRoutes.js"
     ],
   };
 

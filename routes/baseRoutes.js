@@ -21,11 +21,24 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
   res.send(`<h1>Welcome to SparkRunners API</h1>
-    <p>Server is running successfully!</p><h2>Available endpoints:</h2>
+    <p>Server is running successfully!</p>
+    
+    <h2>Available endpoints:</h2>
+    <h3>Public:</h3>
     <ul>
       <li><a href="/api/v1/status">/api/v1/status</a> - Health check</li>
       <li><a href="/api/v1/scooters">/api/v1/scooters</a> - Get all scooters</li>
       <li><a href="/api/v1/scooters/1">/api/v1/scooters/1</a> - Get scooter by ID</li>
+    </ul>
+    
+    <h3>Protected (requires JWT):</h3>
+    <ul>
+      <li>POST /api/v1/rent/start/:id - Start rental</li>
+      <li>POST /api/v1/rent/stop/:id - Stop rental</li>
+    </ul>
+    
+    <h3>Documentation:</h3>
+    <ul>
       <li><a href="/api-docs/v1">/api-docs/v1</a> - API Documentation (Swagger)</li>
     </ul>
   `)
