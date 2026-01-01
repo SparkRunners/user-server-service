@@ -28,6 +28,11 @@ app.use(cors);
 
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+const fileLogger = require("./middleware/fileLogger");
+// use file logger to log api req/res
+app.use(fileLogger);
 
 // Redefine predefined routes
 const baseRoutes = require('./routes/baseRoutes');
