@@ -35,6 +35,8 @@ router.get('/', (req, res) => {
     <ul>
       <li>POST /api/v1/rent/start/:id - Start rental</li>
       <li>POST /api/v1/rent/stop/:id - Stop rental</li>
+      <li>GET /api/v1/rent/history - Get trip history</li>
+      <li>GET /api/v1/rent/history:tripId - Get specfic trip history</li>
     </ul>
     
     <h3>Documentation:</h3>
