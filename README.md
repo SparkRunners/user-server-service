@@ -55,33 +55,68 @@ Paste in information from ".env file for user-server-service" to the .env file
 | GET | `/status` | API status check | - |
 | GET | `/scooters` | Get all scooters | `city`, `status` |
 | GET | `/scooters/:id` | Get specific scooter (MongoDB _id) | - |
+| GET | `/zones` | Get all zones | `city`, `type` |
+| GET | `/zones/check` | Check zone rules for location | `latitude`, `longitude` |
+| GET | `/zones/:id` | Get specific zone | - |
+| GET | `/stations` | Get all charging stations | `city` |
+| GET | `/stations/:id` | Get specific charging station | - |
+
+### Protected Endpoints (Require JWT)
+
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| POST | `/rent/start/:id` | Start renting a scooter | JWT |
+| POST | `/rent/stop/:id` | Stop renting a scooter | JWT |
+| GET | `/rent/history` | Get user trip history | JWT |
+| GET | `/rent/history/:tripId` | Get specific trip details | JWT |
+
+### Admin Endpoints (Require JWT + Admin Role)
+
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| POST | `/zones` | Create new zone | JWT + Admin |
+| PUT | `/zones/:id` | Update zone | JWT + Admin |
+| DELETE | `/zones/:id` | Delete zone | JWT + Admin |
 
 ### Query Parameters
 
+**Scooters:**
 - `?city=Stockholm` - Filter by city (Stockholm, Göteborg, Malmö)
 - `?status=Available` - Filter by status (Available, In use, Charging, Maintenance, Off)
 
-### Protected Endpoint (Require JWT)
+**Zones:**
+- `?city=Stockholm` - Filter by city
+- `?type=parking` - Filter by type (parking, charging, slow-speed, no-go)
 
-| Method | Endpoint | Description | Auth |
-|--------|----------|-------------|--------------|
-| POST | `/rent/start:id` | Start renting a scooter | YES |
-| POST | `/rent/stop:id` | Stop renting a scooter | YES |
-
-
+**Stations:**
+- `?city=Malmö` - Filter by city
 
 ### Examples
 ```bash
 # Get all scooters
 curl http://localhost:3000/api/v1/scooters
 
-# Filter by city
+# Filter scooters by city
 curl "http://localhost:3000/api/v1/scooters?city=Stockholm"
 
 # Get specific scooter using MongoDB _id
 curl http://localhost:3000/api/v1/scooters/694030d35d4b6014907b095f
-```
 
+# Get all zones
+curl http://localhost:3000/api/v1/zones
+
+# Get parking zones in Stockholm
+curl "http://localhost:3000/api/v1/zones?city=Stockholm&type=parking"
+
+# Check zone rules for a location
+curl "http://localhost:3000/api/v1/zones/check?latitude=55.59&longitude=13.00"
+
+# Get all charging stations
+curl http://localhost:3000/api/v1/stations
+
+# Get charging stations in Göteborg
+curl "http://localhost:3000/api/v1/stations?city=Göteborg"
+```
 ---
 
 ## Data Structure
@@ -104,6 +139,50 @@ curl http://localhost:3000/api/v1/scooters/694030d35d4b6014907b095f
 }
 ```
 
+### Zone
+```json
+{
+  "_id": "677fa1234567890abcdef123",
+  "name": "Parking – Center",
+  "type": "parking",
+  "city": "Stockholm",
+  "description": "Parking – Center in Stockholm",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [[[18.05, 59.32], [18.09, 59.32], ...]]
+  },
+  "rules": {
+    "parkingAllowed": true,
+    "ridingAllowed": true,
+    "maxSpeed": 20
+  },
+  "priority": 40,
+  "active": true,
+  "createdAt": "2025-01-04T10:00:00.000Z",
+  "updatedAt": "2025-01-04T10:00:00.000Z"
+}
+```
+
+### Zone Types
+- **parking** - Parking zones (5 per city)
+- **charging** - Charging stations (2 per city)
+- **slow-speed** - Speed-restricted areas (1 per city)
+- **no-go** - Restricted areas where riding/parking is forbidden (1 per city)
+
+### Zone Check Response
+```json
+{
+  "inZone": true,
+  "zonesCount": 2,
+  "zones": [...],
+  "rules": {
+    "parkAllowed": true,
+    "rideAllowed": true,
+    "maxSpeed": 10,
+    "hasCharging": false
+  }
+}
+```
 ### Trip
 ```json
 {
