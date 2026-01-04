@@ -97,7 +97,7 @@ async function seedZones() {
         console.log("Zones created:");
         zonesCreated.forEach((z) => console.log(` ${z.name} (${z.type})`));
       } catch (error) {
-        console.error(`Error seeding ${city}`);
+        console.error(`Error seeding ${city}`, error.message);
       }
     }
 
