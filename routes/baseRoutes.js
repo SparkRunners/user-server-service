@@ -28,7 +28,10 @@ router.get('/', (req, res) => {
     <ul>
       <li><a href="/api/v1/status">/api/v1/status</a> - Health check</li>
       <li><a href="/api/v1/scooters">/api/v1/scooters</a> - Get all scooters</li>
-      <li><a href="/api/v1/scooters/1">/api/v1/scooters/1</a> - Get scooter by ID</li>
+      <li>/api/v1/scooters/:id - Get scooter by ID (MongoDB ObjectId)</li>
+      <li><a href="/api/v1/zones">/api/v1/zones</a> - Get all zones</li>
+      <li><a href="/api/v1/zones/check?latitude=55.59&longitude=13.00">/api/v1/zones/check</a> - Check zone rules for location</li>
+      <li><a href="/api/v1/stations">/api/v1/stations</a> - Get all charging stations</li>
     </ul>
     
     <h3>Protected (requires JWT):</h3>
@@ -37,6 +40,13 @@ router.get('/', (req, res) => {
       <li>POST /api/v1/rent/stop/:id - Stop rental</li>
       <li>GET /api/v1/rent/history - Get trip history</li>
       <li>GET /api/v1/rent/history:tripId - Get specfic trip history</li>
+    </ul>
+
+    <h3>Admin (requires JWT + Admin role):</h3>
+    <ul>
+      <li>POST /api/v1/zones - Create zone</li>
+      <li>PUT /api/v1/zones/:id - Update zone</li>
+      <li>DELETE /api/v1/zones/:id - Delete zone</li>
     </ul>
     
     <h3>Documentation:</h3>
