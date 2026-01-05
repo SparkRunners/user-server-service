@@ -30,7 +30,8 @@ function setupSwagger(app) {
     apis: ["./app.js",
       "./routes/baseRoutes.js",
       "./routes/scooterRoutes.js",
-      "./routes/rentRoutes.js"
+      "./routes/rentRoutes.js",
+      "./routes/zoneRoutes.js"
     ],
   };
 
