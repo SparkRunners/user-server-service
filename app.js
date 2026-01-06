@@ -40,6 +40,8 @@ const scooterRoutes = require('./routes/scooterRoutes');
 const rentRoutes = require('./routes/rentRoutes');
 const zoneRoutes = require('./routes/zoneRoutes');
 const stationRoutes = require('./routes/stationRoutes');
+const citiesRoutes = require('./routes/citiesRoutes');
+const pricingRoutes = require('./routes/pricingRoutes');
 
 // Define routes centraly
 app.use('/', baseRoutes);
@@ -47,6 +49,8 @@ app.use('/api/v1', scooterRoutes);
 app.use('/api/v1/rent', rentRoutes);
 app.use('/api/v1', zoneRoutes);
 app.use('/api/v1', stationRoutes);
+app.use('/api/v1', citiesRoutes);
+app.use('/api/v1', pricingRoutes);
 
 async function startServer() {
   // connect to databasea

@@ -27,6 +27,8 @@ router.get('/', (req, res) => {
     <h3>Public:</h3>
     <ul>
       <li><a href="/api/v1/status">/api/v1/status</a> - Health check</li>
+      <li><a href="/api/v1/cities">/api/v1/cities</a> - Get all cities</li>
+      <li><a href="/api/v1/pricing">/api/v1/pricing</a> - Get pricing information</li>
       <li><a href="/api/v1/scooters">/api/v1/scooters</a> - Get all scooters</li>
       <li>/api/v1/scooters/:id - Get scooter by ID (MongoDB ObjectId)</li>
       <li><a href="/api/v1/zones">/api/v1/zones</a> - Get all zones</li>
