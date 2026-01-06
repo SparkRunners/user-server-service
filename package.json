@@ -7,7 +7,9 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "lint": "eslint . --ext .js --fix ",
-    "test": "DOTENV_CONFIG_RADAR=false NODE_ENV=test jest --detectOpenHandles --coverage"
+    "test": "DOTENV_CONFIG_RADAR=false NODE_ENV=test jest --detectOpenHandles --coverage",
+    "seed:zones": "node seed/seedZones.js",
+    "seed:cities": "node seed/seedCities.js"
   },
   "keywords": [],
   "author": "",
