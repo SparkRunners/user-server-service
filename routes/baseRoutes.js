@@ -45,6 +45,7 @@ router.get('/', (req, res) => {
       <li>GET /api/v1/users/:id - Get user information</li>
       <li>GET /api/v1/users/:id/balance - Get user balance</li>
       <li>POST /api/v1/users/:id/fillup - Add money to balance</li>
+      <li>POST /api/v1/scooters/:id/telemetry - Update scooter telemetry data</li>
     </ul>
 
     <h3>Admin (requires JWT + Admin role):</h3>

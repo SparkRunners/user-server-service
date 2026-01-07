@@ -72,6 +72,7 @@ Paste in information from ".env file for user-server-service" to the .env file
 | GET | `/users/:id` | Get user information | JWT |
 | GET | `/users/:id/balance` | Get user balance | JWT |
 | POST | `/users/:id/fillup` | Add money to user balance | JWT |
+| POST | `/scooters/:id/telemetry` | Update scooter telemetry data | JWT |
 
 ### Admin Endpoints (Require JWT + Admin Role)
 
@@ -241,6 +242,20 @@ curl -X POST http://localhost:3000/api/v1/users/USER_ID/fillup \
   "createdAt": "2025-12-30T21:51:11.682Z",
   "updatedAt": "2025-12-30T21:51:16.982Z"
 }
+
+# Update scooter telemetry (with JWT)
+curl -X POST http://localhost:3000/api/v1/scooters/SCOOTER_ID/telemetry \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "coordinates": {
+      "latitude": 59.3333,
+      "longitude": 18.0700
+    },
+    "battery": 75,
+    "speed": 15,
+    "status": "In use"
+  }'
 
 ## Pricing
 
