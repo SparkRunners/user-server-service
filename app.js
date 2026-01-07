@@ -41,6 +41,7 @@ const citiesRoutes = require("./routes/citiesRoutes");
 const pricingRoutes = require("./routes/pricingRoutes");
 const userRoutes = require("./routes/userRoutes");
 const telemetryRoutes = require("./routes/telemetryRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 // Define routes centraly
 app.use("/", baseRoutes);
@@ -52,6 +53,7 @@ app.use("/api/v1", citiesRoutes);
 app.use("/api/v1", pricingRoutes);
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", telemetryRoutes);
+app.use("/api/v1", adminRoutes);
 
 async function startServer() {
   // connect to database
