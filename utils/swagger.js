@@ -34,7 +34,8 @@ function setupSwagger(app) {
       "./routes/zoneRoutes.js",
       "./routes/citiesRoutes.js",
       "./routes/pricingRoutes.js",
-      "./routes/userRoutes.js"
+      "./routes/userRoutes.js",
+      "./routes/telemetryRoutes.js"
 
     ],
   };
