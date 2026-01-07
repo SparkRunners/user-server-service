@@ -69,6 +69,9 @@ Paste in information from ".env file for user-server-service" to the .env file
 | POST | `/rent/stop/:id` | Stop renting a scooter | JWT |
 | GET | `/rent/history` | Get user trip history | JWT |
 | GET | `/rent/history/:tripId` | Get specific trip details | JWT |
+| GET | `/users/:id` | Get user information | JWT |
+| GET | `/users/:id/balance` | Get user balance | JWT |
+| POST | `/users/:id/fillup` | Add money to user balance | JWT |
 
 ### Admin Endpoints (Require JWT + Admin Role)
 
@@ -116,6 +119,20 @@ curl http://localhost:3000/api/v1/stations
 
 # Get charging stations in Göteborg
 curl "http://localhost:3000/api/v1/stations?city=Göteborg"
+
+# Get user info (with JWT)
+curl http://localhost:3000/api/v1/users/USER_ID \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+# Get user balance (with JWT)
+curl http://localhost:3000/api/v1/users/USER_ID/balance \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+# Fill up balance (with JWT)
+curl -X POST http://localhost:3000/api/v1/users/USER_ID/fillup \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"amount": 500}'
 ```
 ---
 
@@ -183,6 +200,19 @@ curl "http://localhost:3000/api/v1/stations?city=Göteborg"
   }
 }
 ```
+### User
+```json
+{
+  "userId": "695469b63491cb71beeee52e",
+  "email": "user@example.com",
+  "name": "John Doe",
+  "balance": 1000,
+  "active": true,
+  "createdAt": "2026-01-07T18:00:03.377Z",
+  "updatedAt": "2026-01-07T18:00:03.377Z"
+}
+```
+
 ### Trip
 ```json
 {
