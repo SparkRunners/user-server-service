@@ -78,6 +78,13 @@ Paste in information from ".env file for user-server-service" to the .env file
 
 | Method | Endpoint | Description | Auth |
 |--------|----------|-------------|------|
+| GET | `/admin/users` | List all users | JWT + Admin |
+| GET | `/admin/scooters` | List all scooters | JWT + Admin |
+| POST | `/admin/scooters` | Create new scooter | JWT + Admin |
+| PUT | `/admin/scooters/:id` | Update scooter | JWT + Admin |
+| DELETE | `/admin/scooters/:id` | Delete scooter | JWT + Admin |
+| GET | `/admin/rides` | List all rides | JWT + Admin |
+| GET | `/admin/payments` | List all payments with revenue | JWT + Admin |
 | POST | `/zones` | Create new zone | JWT + Admin |
 | PUT | `/zones/:id` | Update zone | JWT + Admin |
 | DELETE | `/zones/:id` | Delete zone | JWT + Admin |
@@ -134,6 +141,21 @@ curl -X POST http://localhost:3000/api/v1/users/USER_ID/fillup \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"amount": 500}'
+
+# Admin: Get all users (with JWT admin token)
+curl http://localhost:3000/api/v1/admin/users \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+
+# Admin: Update scooter status
+curl -X PUT http://localhost:3000/api/v1/admin/scooters/SCOOTER_ID \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"status": "Maintenance", "battery": 50}'
+
+# Admin: Get payments with revenue
+curl http://localhost:3000/api/v1/admin/payments \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+
 ```
 ---
 

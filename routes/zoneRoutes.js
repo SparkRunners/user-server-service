@@ -96,7 +96,13 @@ router.get("/zones/check", async (req, res) => {
         inZone: false,
         zonesCount: 0,
         zones: [],
-        rules: null,
+        rules: {
+          parkAllowed: false,
+          rideAllowed: false,
+          maxSpeed: 0,
+          hasCharging: false
+        },
+        alert: 'Outside all zones, riding is not allowed'
       });
     }
 

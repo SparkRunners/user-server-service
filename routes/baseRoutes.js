@@ -19,7 +19,7 @@ const router = express.Router();
  *       500:
  *         description: Server error
  */
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   res.send(`<h1>Welcome to SparkRunners API</h1>
     <p>Server is running successfully!</p>
     
@@ -50,6 +50,13 @@ router.get('/', (req, res) => {
 
     <h3>Admin (requires JWT + Admin role):</h3>
     <ul>
+      <li>GET /api/v1/admin/users - List all users</li>
+      <li>GET /api/v1/admin/scooters - List all scooters</li>
+      <li>POST /api/v1/admin/scooters - Create scooter</li>
+      <li>PUT /api/v1/admin/scooters/:id - Update scooter</li>
+      <li>DELETE /api/v1/admin/scooters/:id - Delete scooter</li>
+      <li>GET /api/v1/admin/rides - List all rides</li>
+      <li>GET /api/v1/admin/payments - List all payments</li>
       <li>POST /api/v1/zones - Create zone</li>
       <li>PUT /api/v1/zones/:id - Update zone</li>
       <li>DELETE /api/v1/zones/:id - Delete zone</li>
@@ -59,8 +66,8 @@ router.get('/', (req, res) => {
     <ul>
       <li><a href="/api-docs/v1">/api-docs/v1</a> - API Documentation (Swagger)</li>
     </ul>
-  `)
-    //res.send('Hello from Express! LIve NEw change testing MNow it works \n Check Api docs on route:  /api-docs/v1');
+  `);
+  //res.send('Hello from Express! LIve NEw change testing MNow it works \n Check Api docs on route:  /api-docs/v1');
 });
 
 module.exports = router;
