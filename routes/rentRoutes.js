@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const Scooter = require('../models/Scooter');
 const Trip = require('../models/Trip');
-const { authenticateToken } = require('../middleware/auth');
 const PRICING = require('../config/pricing');
+const { authenticateToken } = require('../middleware/auth');
+const { syncUser } = require('../middleware/syncUser');
+
 
 /**
  * @swagger
@@ -33,7 +35,7 @@ const PRICING = require('../config/pricing');
  *       500:
  *         description: Server error
  */
-router.post('/start/:id', authenticateToken, async (req, res) => {
+router.post('/start/:id', authenticateToken, syncUser, async (req, res) => {
     try {
         const scooter = await Scooter.findById(req.params.id);
 
@@ -45,6 +47,15 @@ router.post('/start/:id', authenticateToken, async (req, res) => {
             return res.status(400).json({
                 error: 'Scooter is not available',
                 currentStatus: scooter.status
+            });
+        }
+
+        const user = req.dbUser;
+        if (user.balance < PRICING.startFee) {
+            return res.status(400).json({
+                error: 'Insufficient balance to start trip',
+                balance: user.balance,
+                requiredMinimum: PRICING.startFee
             });
         }
 
@@ -76,6 +87,9 @@ router.post('/start/:id', authenticateToken, async (req, res) => {
                 id: scooter._id,
                 name: scooter.name,
                 status: scooter.status
+            },
+            user: {
+                balance: req.dbUser.balance
             }
         });
 
@@ -108,7 +122,7 @@ router.post('/start/:id', authenticateToken, async (req, res) => {
  *       500:
  *         description: Server error
  */
-router.post('/stop/:id', authenticateToken, async (req, res) => {
+router.post('/stop/:id', authenticateToken, syncUser, async (req, res) => {
     try {
         const scooter = await Scooter.findById(req.params.id);
 
@@ -152,6 +166,19 @@ router.post('/stop/:id', authenticateToken, async (req, res) => {
         // trip cost
         trip.cost = PRICING.startFee + (tripDuration * PRICING.perMinute);
 
+        const user = req.dbUser;
+
+        if (user.balance < trip.cost) {
+            return res.status(400).json({
+                error: 'Balance is insufficient',
+                balance: user.balance,
+                cost: trip.cost,
+                message: 'Please fill up your account'
+            });
+        }
+
+        user.balance -= trip.cost;
+        await user.save();
         await trip.save();
 
         // Update status for scooter when stopped
@@ -172,6 +199,11 @@ router.post('/stop/:id', authenticateToken, async (req, res) => {
                 id: scooter._id,
                 name: scooter.name,
                 status: scooter.status
+            },
+            user: {
+                previousBalance: user.balance + trip.cost,
+                newBalance: user.balance,
+                amountCharged: trip.cost
             }
         });
 

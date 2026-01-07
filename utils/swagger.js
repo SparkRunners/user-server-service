@@ -33,7 +33,8 @@ function setupSwagger(app) {
       "./routes/rentRoutes.js",
       "./routes/zoneRoutes.js",
       "./routes/citiesRoutes.js",
-      "./routes/pricingRoutes.js"
+      "./routes/pricingRoutes.js",
+      "./routes/userRoutes.js"
 
     ],
   };
