@@ -264,8 +264,10 @@ curl http://localhost:3000/api/v1/admin/payments \
   "createdAt": "2025-12-30T21:51:11.682Z",
   "updatedAt": "2025-12-30T21:51:16.982Z"
 }
+```
 
 # Update scooter telemetry (with JWT)
+```json
 curl -X POST http://localhost:3000/api/v1/scooters/SCOOTER_ID/telemetry \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
@@ -278,6 +280,9 @@ curl -X POST http://localhost:3000/api/v1/scooters/SCOOTER_ID/telemetry \
     "speed": 15,
     "status": "In use"
   }'
+  
+```
+
 
 ## Pricing
 
@@ -293,5 +298,47 @@ Swagger docs available at:
 ```
 http://localhost:3000/api-docs/v1
 ```
-
 ---
+
+## Scooter Simulation (Real-Time)
+
+The server includes an in-memory scooter simulation for development and testing. This allows the frontend to receive live scooter positions in real-time via WebSocket.
+
+### Features
+- Simulates 1000 scooters by default across Stockholm, Göteborg, and Malmö.
+- Each scooter has:
+  - `_id`, `name`, `city`
+  - `coordinates` (`latitude` & `longitude`)
+  - `battery`, `speed`, `status`
+  - `route` with multiple coordinates for movement simulation
+- Scooters move along predefined routes every 3 seconds.
+- Battery decreases gradually while moving.
+- Supports real-time updates via Socket.IO (`scooters:init` event).
+- `/api/v1/simulation/state` returns the current state for debugging.
+
+### Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST   | `/api/v1/simulation/start` | Start the in-memory scooter simulation |
+| POST   | `/api/v1/simulation/stop`  | Stop the simulation and clear scooters |
+| GET    | `/api/v1/simulation/state` | Get the current scooters state |
+
+### Frontend Usage
+- Connect to the server using **Socket.IO**:
+```javascript
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:3000");
+
+socket.on("connect", () => {
+  console.log("Connected to scooter simulation");
+});
+
+// Listen for live scooter updates
+socket.on("scooters:init", (scooters) => {
+  console.log("Received scooter data", scooters);
+  // Update map or UI with new scooter positions
+});
+
+

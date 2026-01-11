@@ -42,6 +42,7 @@ const pricingRoutes = require("./routes/pricingRoutes");
 const userRoutes = require("./routes/userRoutes");
 const telemetryRoutes = require("./routes/telemetryRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const simulationRoutes = require("./routes/simulationRoutes");
 
 // Define routes centraly
 app.use("/", baseRoutes);
@@ -54,6 +55,7 @@ app.use("/api/v1", pricingRoutes);
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", telemetryRoutes);
 app.use("/api/v1", adminRoutes);
+app.use("/api/v1/simulation", simulationRoutes);
 
 async function startServer() {
   // connect to database
@@ -73,9 +75,10 @@ async function startServer() {
     }
 
     // Start server
-    app.listen(PORT, () => {
+    const server = app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
     });
+    return server 
   } catch (err) {
     console.error("Startup error:", err);
     process.exit(1);
@@ -83,7 +86,11 @@ async function startServer() {
 }
 
 if (process.env.NODE_ENV !== "test") {
-  startServer();
+  startServer().then(server => {
+    // Attach simulation to the existing server
+    const { startSimulation } = require("./utils/simulation");
+    startSimulation(server, 1000);
+  });
 }
 
 module.exports = app;
