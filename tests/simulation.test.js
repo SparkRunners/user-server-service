@@ -1,6 +1,4 @@
 const request = require("supertest");
-const { getScooters } = require("../utils/simulation");
-
 const app = require("../app");
 
 describe("Simulation API", () => {
@@ -12,6 +10,20 @@ describe("Simulation API", () => {
 
             expect(response.body).toHaveProperty("message", "Simulation started");
         });
+
+         it("should not start the simulation twice", async () => {
+            await request(app).post("/api/v1/simulation/start").expect(200);
+
+            const response = await request(app)
+                .post("/api/v1/simulation/start")
+                .expect(200);
+
+             expect(response.body).toHaveProperty("message");
+
+             await request(app)
+             .post("/api/v1/simulation/stop")
+             .expect(200);
+        })
     });
 
     describe("POST /api/v1/simulation/stop", () => {
@@ -34,6 +46,7 @@ describe("Simulation API", () => {
             expect(response.body).toHaveProperty("count");
             expect(response.body).toHaveProperty("scooters");
         });
+
     });
 
 
