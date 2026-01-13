@@ -1,4 +1,3 @@
-const request = require("supertest");
 const jwt = require("jsonwebtoken");
 const { authenticateToken, requireAdmin } = require("../middleware/auth");
 
@@ -6,26 +5,12 @@ process.env.JWT_SECRET = "test-secret";
 
 describe("Auth Middleware", () => {
   let validToken;
-  let adminToken;
-  let expiredToken;
 
   beforeAll(() => {
     validToken = jwt.sign(
       { id: "user123", email: "user@test.com", role: ["user"] },
       process.env.JWT_SECRET || "test-secret",
       { expiresIn: "1h" }
-    );
-
-    adminToken = jwt.sign(
-      { id: "admin123", email: "admin@test.com", role: ["admin"] },
-      process.env.JWT_SECRET || "test-secret",
-      { expiresIn: "1h" }
-    );
-
-    expiredToken = jwt.sign(
-      { id: "user123", email: "user@test.com", role: ["user"] },
-      process.env.JWT_SECRET || "test-secret",
-      { expiresIn: "-1h" }
     );
   });
 
