@@ -5,6 +5,8 @@ describe("Cities API", () => {
   describe("GET /api/v1/cities", () => {
     it("should return 200 OK", async () => {
       const response = await request(app).get("/api/v1/cities").expect(200);
+
+      expect(response.body).toBeDefined();
     });
 
     it("should return list of cities", async () => {

@@ -1,6 +1,5 @@
 const request = require("supertest");
 const User = require("../models/User");
-const Trip = require("../models/Trip");
 
 jest.mock("../models/User");
 jest.mock("../models/Trip");
@@ -29,7 +28,6 @@ jest.mock("../middleware/syncUser", () => ({
 }));
 
 const app = require("../app");
-const { requireAdmin } = require("../middleware/auth");
 
 describe("User API", () => {
   const mockUserId = "user123";

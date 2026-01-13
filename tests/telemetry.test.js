@@ -111,6 +111,7 @@ describe("Telemetry API", () => {
 
       expect(mockScooter.coordinates.latitude).toBe(60.3327);
       expect(mockScooter.coordinates.longitude).toBe(19.0656);
+      expect(response.body).toBeDefined();
     });
 
     it("should update speed if provided", async () => {
