@@ -1,12 +1,15 @@
 # User-Server-Service
 
 This repo contains all the business logic REST APIs for the Elsparkcykel app.
+
 ## Badges for Build status and code health
+
 [![Node.js CI Refactoring branch](https://github.com/SparkRunners/user-server-service/actions/workflows/node-CI.js.yml/badge.svg)](https://github.com/SparkRunners/user-server-service/actions/workflows/node-CI.js.yml)
 
 [![codecov](https://codecov.io/github/SparkRunners/user-server-service/branch/feature%2Fmiddleware/graph/badge.svg?token=4374H8W3UD)](https://codecov.io/github/SparkRunners/user-server-service)
 
 ## Quick Start
+
 ```bash
 # Install dependencies
 npm install
@@ -25,6 +28,7 @@ Server runs on: http://localhost:3000
 ## Environment Variables
 
 Create a `.env` file in the root directory:
+
 ```
 Go to the vteam06-share.env in team folder.
 
@@ -50,59 +54,63 @@ Paste in information from ".env file for user-server-service" to the .env file
 
 ### Public Endpoints
 
-| Method | Endpoint | Description | Query Params |
-|--------|----------|-------------|--------------|
-| GET | `/status` | API status check | - |
-| GET | `/scooters` | Get all scooters | `city`, `status` |
-| GET | `/scooters/:id` | Get specific scooter (MongoDB _id) | - |
-| GET | `/zones` | Get all zones | `city`, `type` |
-| GET | `/zones/check` | Check zone rules for location | `latitude`, `longitude` |
-| GET | `/zones/:id` | Get specific zone | - |
-| GET | `/stations` | Get all charging stations | `city` |
-| GET | `/stations/:id` | Get specific charging station | - |
+| Method | Endpoint        | Description                         | Query Params            |
+| ------ | --------------- | ----------------------------------- | ----------------------- |
+| GET    | `/status`       | API status check                    | -                       |
+| GET    | `/scooters`     | Get all scooters                    | `city`, `status`        |
+| GET    | `/scooters/:id` | Get specific scooter (MongoDB \_id) | -                       |
+| GET    | `/zones`        | Get all zones                       | `city`, `type`          |
+| GET    | `/zones/check`  | Check zone rules for location       | `latitude`, `longitude` |
+| GET    | `/zones/:id`    | Get specific zone                   | -                       |
+| GET    | `/stations`     | Get all charging stations           | `city`                  |
+| GET    | `/stations/:id` | Get specific charging station       | -                       |
 
 ### Protected Endpoints (Require JWT)
 
-| Method | Endpoint | Description | Auth |
-|--------|----------|-------------|------|
-| POST | `/rent/start/:id` | Start renting a scooter | JWT |
-| POST | `/rent/stop/:id` | Stop renting a scooter | JWT |
-| GET | `/rent/history` | Get user trip history | JWT |
-| GET | `/rent/history/:tripId` | Get specific trip details | JWT |
-| GET | `/users/:id` | Get user information | JWT |
-| GET | `/users/:id/balance` | Get user balance | JWT |
-| POST | `/users/:id/fillup` | Add money to user balance | JWT |
-| POST | `/scooters/:id/telemetry` | Update scooter telemetry data | JWT |
+| Method | Endpoint                  | Description                   | Auth |
+| ------ | ------------------------- | ----------------------------- | ---- |
+| POST   | `/rent/start/:id`         | Start renting a scooter       | JWT  |
+| POST   | `/rent/stop/:id`          | Stop renting a scooter        | JWT  |
+| GET    | `/rent/history`           | Get user trip history         | JWT  |
+| GET    | `/rent/history/:tripId`   | Get specific trip details     | JWT  |
+| GET    | `/users/:id`              | Get user information          | JWT  |
+| GET    | `/users/:id/balance`      | Get user balance              | JWT  |
+| POST   | `/users/:id/fillup`       | Add money to user balance     | JWT  |
+| POST   | `/scooters/:id/telemetry` | Update scooter telemetry data | JWT  |
 
 ### Admin Endpoints (Require JWT + Admin Role)
 
-| Method | Endpoint | Description | Auth |
-|--------|----------|-------------|------|
-| GET | `/admin/users` | List all users | JWT + Admin |
-| GET | `/admin/scooters` | List all scooters | JWT + Admin |
-| POST | `/admin/scooters` | Create new scooter | JWT + Admin |
-| PUT | `/admin/scooters/:id` | Update scooter | JWT + Admin |
-| DELETE | `/admin/scooters/:id` | Delete scooter | JWT + Admin |
-| GET | `/admin/rides` | List all rides | JWT + Admin |
-| GET | `/admin/payments` | List all payments with revenue | JWT + Admin |
-| POST | `/zones` | Create new zone | JWT + Admin |
-| PUT | `/zones/:id` | Update zone | JWT + Admin |
-| DELETE | `/zones/:id` | Delete zone | JWT + Admin |
+| Method | Endpoint              | Description                    | Auth        |
+| ------ | --------------------- | ------------------------------ | ----------- |
+| GET    | `/admin/users`        | List all users                 | JWT + Admin |
+| GET    | `/admin/scooters`     | List all scooters              | JWT + Admin |
+| POST   | `/admin/scooters`     | Create new scooter             | JWT + Admin |
+| PUT    | `/admin/scooters/:id` | Update scooter                 | JWT + Admin |
+| DELETE | `/admin/scooters/:id` | Delete scooter                 | JWT + Admin |
+| GET    | `/admin/rides`        | List all rides                 | JWT + Admin |
+| GET    | `/admin/payments`     | List all payments with revenue | JWT + Admin |
+| POST   | `/zones`              | Create new zone                | JWT + Admin |
+| PUT    | `/zones/:id`          | Update zone                    | JWT + Admin |
+| DELETE | `/zones/:id`          | Delete zone                    | JWT + Admin |
 
 ### Query Parameters
 
 **Scooters:**
+
 - `?city=Stockholm` - Filter by city (Stockholm, Göteborg, Malmö)
 - `?status=Available` - Filter by status (Available, In use, Charging, Maintenance, Off)
 
 **Zones:**
+
 - `?city=Stockholm` - Filter by city
 - `?type=parking` - Filter by type (parking, charging, slow-speed, no-go)
 
 **Stations:**
+
 - `?city=Malmö` - Filter by city
 
 ### Examples
+
 ```bash
 # Get all scooters
 curl http://localhost:3000/api/v1/scooters
@@ -157,11 +165,13 @@ curl http://localhost:3000/api/v1/admin/payments \
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
 
 ```
+
 ---
 
 ## Data Structure
 
 ### Scooter
+
 ```json
 {
   "_id": "694030d35d4b6014907b095f",
@@ -180,6 +190,7 @@ curl http://localhost:3000/api/v1/admin/payments \
 ```
 
 ### Zone
+
 ```json
 {
   "_id": "677fa1234567890abcdef123",
@@ -204,12 +215,14 @@ curl http://localhost:3000/api/v1/admin/payments \
 ```
 
 ### Zone Types
+
 - **parking** - Parking zones (5 per city)
 - **charging** - Charging stations (2 per city)
 - **slow-speed** - Speed-restricted areas (1 per city)
 - **no-go** - Restricted areas where riding/parking is forbidden (1 per city)
 
 ### Zone Check Response
+
 ```json
 {
   "inZone": true,
@@ -223,7 +236,9 @@ curl http://localhost:3000/api/v1/admin/payments \
   }
 }
 ```
+
 ### User
+
 ```json
 {
   "userId": "695469b63491cb71beeee52e",
@@ -237,6 +252,7 @@ curl http://localhost:3000/api/v1/admin/payments \
 ```
 
 ### Trip
+
 ```json
 {
   "_id": "6954494ffa6bb949199a37c3",
@@ -267,6 +283,7 @@ curl http://localhost:3000/api/v1/admin/payments \
 ```
 
 # Update scooter telemetry (with JWT)
+
 ```json
 curl -X POST http://localhost:3000/api/v1/scooters/SCOOTER_ID/telemetry \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
@@ -280,13 +297,13 @@ curl -X POST http://localhost:3000/api/v1/scooters/SCOOTER_ID/telemetry \
     "speed": 15,
     "status": "In use"
   }'
-  
-```
 
+```
 
 ## Pricing
 
 Rental pricing config is found in `config/pricing.js`:
+
 - **Start fee:** 10 kr
 - **Per minute:** 2.5 kr
 
@@ -295,9 +312,11 @@ Rental pricing config is found in `config/pricing.js`:
 ## API Documentation
 
 Swagger docs available at:
+
 ```
 http://localhost:3000/api-docs/v1
 ```
+
 ---
 
 ## Scooter Simulation (Real-Time)
@@ -305,6 +324,7 @@ http://localhost:3000/api-docs/v1
 The server includes an in-memory scooter simulation for development and testing. This allows the frontend to receive live scooter positions in real-time via WebSocket.
 
 ### Features
+
 - Simulates 1000 scooters by default across Stockholm, Göteborg, and Malmö.
 - Each scooter has:
   - `_id`, `name`, `city`
@@ -318,14 +338,26 @@ The server includes an in-memory scooter simulation for development and testing.
 
 ### Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
+| Method | Endpoint                   | Description                            |
+| ------ | -------------------------- | -------------------------------------- |
 | POST   | `/api/v1/simulation/start` | Start the in-memory scooter simulation |
 | POST   | `/api/v1/simulation/stop`  | Stop the simulation and clear scooters |
-| GET    | `/api/v1/simulation/state` | Get the current scooters state |
+| GET    | `/api/v1/simulation/state` | Get the current scooters state         |
+
+## Testing
+
+```bash
+npm test              # Run all tests with coverage
+```
+
+**85.5% coverage** • 88 tests across all endpoints
+
+---
 
 ### Frontend Usage
+
 - Connect to the server using **Socket.IO**:
+
 ```javascript
 import { io } from "socket.io-client";
 
@@ -340,5 +372,4 @@ socket.on("scooters:init", (scooters) => {
   console.log("Received scooter data", scooters);
   // Update map or UI with new scooter positions
 });
-
-
+```
