@@ -6,10 +6,40 @@ const { Server } = require("socket.io");
 let io = null;
 let simulationInterval = null;
 let scooters = [];
+let users = [];
+
+
+
+// Import geolocation data for each city
+const stockholmData = require('../mock-data/stockholm.json');
+const goteborgData = require('../mock-data/goteborg.json');
+const malmoData = require('../mock-data/malmo.json');
+
+// A constant to store raods of each city
+const cityRoads = {
+    Stockholm: stockholmData,
+    Göteborg: goteborgData,
+    Malmö: malmoData
+};
+
 
 /**
  * Helper functions
  */
+
+// A function that extracts arrays of points from each street
+function extractRoads(osmData) {
+    return osmData.features
+        .filter(f => f.geometry && f.geometry.type === 'LineString')
+        .map(f => f.geometry.coordinates.map(coord => ({ longitude: coord[0], latitude: coord[1] })));
+}
+
+// Precompute road arrays for all cities
+const cityPolys = {};
+for (const city in cityRoads) {
+    cityPolys[city] = extractRoads(cityRoads[city]);
+}
+
 
 // Random speed between 0–20 km/t
 function randomSpeed() {
@@ -21,25 +51,55 @@ function getScooters() {
     return scooters;
 }
 
-// Generate a route with latitude & longitude objects
-function generateRoute({ latitude, longitude }, steps = 20, stepSize = 0.0004) {
-    const route = [];
-    let lat = latitude;
-    let lng = longitude;
+// get random corridanates inside the city road routes arrays
+function randomPointOnCity(cityName) {
+    const roads = cityPolys[cityName];
+    if (!roads || roads.length === 0) return { latitude: 0, longitude: 0 };
 
-    for (let i = 0; i < steps; i++) {
-        lat += (Math.random() - 0.5) * stepSize;
-        lng += (Math.random() - 0.5) * stepSize;
-        route.push({ latitude: lat, longitude: lng });
+    const road = roads[Math.floor(Math.random() * roads.length)];
+
+    const point = road[Math.floor(Math.random() * road.length)];
+
+    return point;
+}
+
+
+
+// Generate a route with latitude & longitude inside city bounds
+function generateRoute(start, cityName, steps = 20) {
+    const roads = cityPolys[cityName];
+    const route = [start];
+
+    for (let i = 1; i < steps; i++) {
+        const road = roads[Math.floor(Math.random() * roads.length)];
+        const point = road[Math.floor(Math.random() * road.length)];
+        route.push(point);
     }
 
     return route;
 }
 
+
+/**
+ * Generate simulated users
+ */
+function generateUsers(count = 1000) {
+    const usersList = [];
+    for (let i = 0; i < count; i++) {
+        usersList.push({
+            _id: i + 1,
+            name: `SimUser#${i + 1}`,
+            email: `user${i + 1}@example.com`
+        });
+    }
+    return usersList;
+}
+
+
 /**
  * Generate scooters in cities
  */
-function generateScooters(count = 1000) {
+function generateScooters(count = 1000, usersList) {
     const cities = [
         { name: "Stockholm", lat: 59.3293, lng: 18.0686 },
         { name: "Göteborg", lat: 57.7089, lng: 11.9746 },
@@ -58,10 +118,9 @@ function generateScooters(count = 1000) {
 
         const speed = status === "Available" ? randomSpeed() : 0;
 
-        const coordinates = {
-            latitude: city.lat + (Math.random() - 0.5) * 0.02,
-            longitude: city.lng + (Math.random() - 0.5) * 0.02
-        };
+        const coordinates = randomPointOnCity(city.name);
+
+        const assignedUser = usersList[i];
 
         scooters.push({
             _id: i + 1,
@@ -71,8 +130,9 @@ function generateScooters(count = 1000) {
             status,
             speed,
             coordinates,
-            route: generateRoute(coordinates),
-            routeIndex: 0
+            route: generateRoute(coordinates, city.name),
+            routeIndex: 0,
+            user: assignedUser
         });
     }
 
@@ -104,7 +164,9 @@ function startSimulation(httpServer, scooterCount = 1000) {
         return;
     }
 
-    scooters = generateScooters(scooterCount);
+    users = generateUsers(scooterCount);
+
+    scooters = generateScooters(scooterCount, users);
 
     // Start Socket.IO server once
     if (!io) {
@@ -113,6 +175,7 @@ function startSimulation(httpServer, scooterCount = 1000) {
         io.on("connection", socket => {
             console.log("Client connected to simulation");
             socket.emit("scooters:init", scooters);
+            socket.emit("users:init", users);
         });
     }
 
@@ -121,7 +184,7 @@ function startSimulation(httpServer, scooterCount = 1000) {
         io.emit("scooters:init", scooters);
     }, 3000);
 
-    console.log(`Scooter simulation started (${scooterCount} scooters)`);
+    console.log(`Scooter simulation started (${scooterCount} scooters and users)`);
 
     return {
         stop: stopSimulation

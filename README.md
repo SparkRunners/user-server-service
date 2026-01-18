@@ -322,9 +322,12 @@ http://localhost:3000/api-docs/v1
 ## Scooter Simulation (Real-Time)
 
 The server includes an in-memory scooter simulation for development and testing. This allows the frontend to receive live scooter positions in real-time via WebSocket.
+The street data for Stockholm, Göteborg, and Malmö is extracted from OpenStreetMap using [Overpass Turbo](https://overpass-turbo.eu/)
+ and exported as GeoJSON files. In the simulation, these files are processed into arrays of street coordinates, which are then used to generate scooters and their routes, ensuring they are placed only on streets and avoiding water or invalid areas.
 
 ### Features
 
+- Uses GeoJSON street data from /mock-data/ for realistic positioning and routes.
 - Simulates 1000 scooters by default across Stockholm, Göteborg, and Malmö.
 - Each scooter has:
   - `_id`, `name`, `city`
@@ -350,8 +353,6 @@ The server includes an in-memory scooter simulation for development and testing.
 npm test              # Run all tests with coverage
 ```
 
-**85.5% coverage** • 88 tests across all endpoints
-
 ---
 
 ### Frontend Usage
@@ -372,4 +373,11 @@ socket.on("scooters:init", (scooters) => {
   console.log("Received scooter data", scooters);
   // Update map or UI with new scooter positions
 });
+
+// Listen for generated users
+socket.on("users:init", (users) => {
+  console.log("Received users data", users);
+  // Update userlist to display user info
+});
+
 ```

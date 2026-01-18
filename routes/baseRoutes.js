@@ -61,6 +61,13 @@ router.get("/", (req, res) => {
       <li>PUT /api/v1/zones/:id - Update zone</li>
       <li>DELETE /api/v1/zones/:id - Delete zone</li>
     </ul>
+
+    <h3>Simulation (real-time, in-memory):</h3>
+    <ul>
+      <li>POST /api/v1/simulation/start - Start scooter simulation</li>
+      <li>POST /api/v1/simulation/stop - Stop scooter simulation</li>
+      <li>GET <a href="/api/v1/simulation/state">/api/v1/simulation/state</a> - Get live scooter simulation data (JSON)</li>
+    </ul>
     
     <h3>Documentation:</h3>
     <ul>
