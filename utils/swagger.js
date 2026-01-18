@@ -23,10 +23,22 @@ function setupSwagger(app) {
           },
         },
       },
-      security: [],
+      security: [
+        { bearerAuth: [] }
+      ],
     },
     apis: ["./app.js",
-      "./routes/baseRoutes.js"
+      "./routes/baseRoutes.js",
+      "./routes/scooterRoutes.js",
+      "./routes/rentRoutes.js",
+      "./routes/zoneRoutes.js",
+      "./routes/citiesRoutes.js",
+      "./routes/pricingRoutes.js",
+      "./routes/userRoutes.js",
+      "./routes/telemetryRoutes.js",
+      "./routes/adminRoutes.js",
+      "./routes/simulationRoutes.js"
+
     ],
   };
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const scooters = require('../mock-data/scooters.json');
+const Scooter = require('../models/Scooter');
 
 /**
  * @swagger
@@ -43,14 +43,19 @@ router.get('/status', (req, res) => {
  *       500:
  *         description: Server error
  */
-router.get('/scooters', (req, res) => {
-    const { status, city } = req.query;
-    let filtered = scooters;
+router.get('/scooters', async (req, res) => {
+    try {
+        const { status, city } = req.query;
+        let query = {};
 
-    if (status) filtered = filtered.filter(s => s.status === status);
-    if (city) filtered = filtered.filter(s => s.city === city);
+        if (status) query.status = status;
+        if (city) query.city = city;
 
-    res.json(filtered);
+        const scooters = await Scooter.find(query);
+        res.json(scooters);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
 });
 
 /**
@@ -65,7 +70,7 @@ router.get('/scooters', (req, res) => {
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: Scooter ID
  *     responses:
  *       200:
@@ -75,10 +80,18 @@ router.get('/scooters', (req, res) => {
  *       500:
  *         description: Server error
  */
-router.get('/scooters/:id', (req, res) => {
-    const scooter = scooters.find(s => s.id === parseInt(req.params.id));
-    if (!scooter) return res.status(404).json({ error: 'Not found' });
-    res.json(scooter);
+router.get('/scooters/:id', async (req, res) => {
+    try {
+        const scooter = await Scooter.findById(req.params.id);
+
+        if (!scooter) {
+            return res.status(404).json({ error: 'Not found' });
+        }
+        
+        res.json(scooter);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
 module.exports = router;
