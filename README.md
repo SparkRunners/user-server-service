@@ -332,7 +332,7 @@ The street data for Stockholm, Göteborg, and Malmö is extracted from OpenStree
 - Each scooter has:
   - `_id`, `name`, `city`
   - `coordinates` (`latitude` & `longitude`)
-  - `battery`, `speed`, `status`
+  - `battery`, `speed`, `status`, `user`
   - `route` with multiple coordinates for movement simulation
 - Scooters move along predefined routes every 3 seconds.
 - Battery decreases gradually while moving.
