@@ -34,6 +34,9 @@ function extractRoads(osmData) {
         .map(f => f.geometry.coordinates.map(coord => ({ longitude: coord[0], latitude: coord[1] })));
 }
 
+
+
+
 // Precompute road arrays for all cities
 const cityPolys = {};
 for (const city in cityRoads) {
@@ -65,19 +68,25 @@ function randomPointOnCity(cityName) {
 
 
 
-// Generate a route with latitude & longitude inside city bounds
+// Generate a route on a road/ path
 function generateRoute(start, cityName, steps = 20) {
     const roads = cityPolys[cityName];
-    const route = [start];
+    if (!roads || roads.length === 0) return [start];
 
-    for (let i = 1; i < steps; i++) {
-        const road = roads[Math.floor(Math.random() * roads.length)];
-        const point = road[Math.floor(Math.random() * road.length)];
-        route.push(point);
+    const road = roads[Math.floor(Math.random() * roads.length)];
+
+    let startIndex = Math.floor(Math.random() * road.length);
+
+    const route = [];
+
+    for (let i = 0; i < steps; i++) {
+        const idx = (startIndex + i) % road.length;
+        route.push(road[idx]);
     }
 
     return route;
 }
+
 
 
 /**
@@ -140,13 +149,21 @@ function generateScooters(count = 1000, usersList) {
 }
 
 /**
- * Move scooters along their route
+ * Move scooters along their route and generate a new one from current position
  */
 function moveScooters(scooters) {
     scooters.forEach(scooter => {
         if (scooter.speed === 0) return;
 
-        scooter.routeIndex = (scooter.routeIndex + 1) % scooter.route.length;
+        scooter.routeIndex++;
+
+        if (scooter.routeIndex >= scooter.route.length) {
+            scooter.route = generateRoute(
+                scooter.coordinates,
+                scooter.city
+            );
+            scooter.routeIndex = 0;
+        }
 
         const { latitude, longitude } = scooter.route[scooter.routeIndex];
         scooter.coordinates = { latitude, longitude };
@@ -154,6 +171,7 @@ function moveScooters(scooters) {
         scooter.battery = Math.max(scooter.battery - 0.05, 0);
     });
 }
+
 
 /**
  * Start simulation
