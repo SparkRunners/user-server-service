@@ -9,21 +9,14 @@ function loadGeoJSON(city) {
   const filePath = path.join(
     __dirname,
     "geojson",
-    `${city.toLowerCase()}.json`
+    `${city.toLowerCase()}.json`,
   );
   const data = fs.readFileSync(filePath, "utf8");
   return JSON.parse(data);
 }
 
 function convertGeoJSONToZones(geojson, city) {
-  return geojson.features
-    .filter(feature => {
-      if (feature.properties.type === 'city') {
-        return false;
-      }
-      return true;
-    })
-    .map((feature) => {
+  return geojson.features.map((feature) => {
     const props = feature.properties;
 
     // Rules based on type
@@ -39,7 +32,7 @@ function convertGeoJSONToZones(geojson, city) {
         rules.ridingAllowed = true;
         break;
       case "slow-speed":
-        rules.parkingAllowed = false;
+        rules.parkingAllowed = true;
         rules.ridingAllowed = true;
         rules.maxSpeed = props.maxSpeed || 10;
         break;
