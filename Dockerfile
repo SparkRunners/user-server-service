@@ -5,7 +5,7 @@ FROM node:22-alpine
 WORKDIR /app
 
 # Copy the server folder into /app
-# COPY . .
+COPY . .
 
 # Expose the port
 EXPOSE 3000

@@ -33,7 +33,29 @@ function extractRoads(osmData) {
         .filter(f => f.geometry && f.geometry.type === 'LineString')
         .map(f => f.geometry.coordinates.map(coord => ({ longitude: coord[0], latitude: coord[1] })));
 }
+// function extractRoads(osmData) {
+//     return osmData.features.flatMap(f => {
+//         if (!f.geometry) return [];
 
+//         if (f.geometry.type === 'LineString') {
+//             return [f.geometry.coordinates.map(coord => ({
+//                 longitude: coord[0],
+//                 latitude: coord[1]
+//             }))];
+//         }
+
+//         if (f.geometry.type === 'MultiLineString') {
+//             return f.geometry.coordinates.map(line =>
+//                 line.map(coord => ({
+//                     longitude: coord[0],
+//                     latitude: coord[1]
+//                 }))
+//             );
+//         }
+
+//         return [];
+//     });
+// }
 
 
 
