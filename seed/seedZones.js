@@ -45,8 +45,8 @@ function convertGeoJSONToZones(geojson, city) {
         break;
       case "no-go":
         rules.parkingAllowed = false;
-        rules.ridingAllowed = true;
-        rules.maxSpeed = props.maxSpeed || 10;
+        rules.ridingAllowed = false;
+        rules.maxSpeed = 0;
         break;
       case "charging":
         rules.parkingAllowed = true;
