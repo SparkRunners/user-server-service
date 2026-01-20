@@ -237,3 +237,139 @@ describe("Zones API", () => {
     });
   });
 });
+
+describe("Zone Rules Validation", () => {
+  describe("No-go zones", () => {
+    it("should not allow riding in no-go zones", async () => {
+      const mockNoGoZone = {
+        name: "No-Go Humlegården",
+        type: "no-go",
+        city: "Stockholm",
+        rules: {
+          parkingAllowed: false,
+          ridingAllowed: false,
+          maxSpeed: 0,
+        },
+        geometry: {
+          type: "Polygon",
+          coordinates: [
+            [
+              [18.070181561995554, 59.34063840775448],
+              [18.070181561995554, 59.33839903042323],
+              [18.074691922062385, 59.33839903042323],
+              [18.074691922062385, 59.34063840775448],
+              [18.070181561995554, 59.34063840775448],
+            ],
+          ],
+        },
+      };
+
+      Zone.find.mockResolvedValue([mockNoGoZone]);
+
+      const response = await request(app)
+        .get("/api/v1/zones/check?latitude=59.33951&longitude=18.07244")
+        .expect(200);
+
+      expect(response.body.rules.rideAllowed).toBe(false);
+      expect(response.body.rules.maxSpeed).toBe(0);
+      expect(response.body.rules.parkAllowed).toBe(false);
+    });
+
+    it("should not allow parking in no-go zones", async () => {
+      const mockNoGoZone = {
+        name: "No-Go – Humlegården",
+        type: "no-go",
+        city: "Stockholm",
+        rules: {
+          parkingAllowed: false,
+          ridingAllowed: false,
+          maxSpeed: 0,
+        },
+      };
+
+      Zone.find.mockResolvedValue([mockNoGoZone]);
+
+      const response = await request(app)
+        .get("/api/v1/zones/check?latitude=59.33951&longitude=18.07244")
+        .expect(200);
+
+      expect(response.body.rules.parkAllowed).toBe(false);
+    });
+
+    it("should return all no-go zones when filtered by type", async () => {
+      const mockNoGoZone = [
+        {
+          name: "No-Go – Humlegården",
+          type: "no-go",
+          city: "Stockholm",
+          rules: {
+            parkingAllowed: false,
+            ridingAllowed: false,
+            maxSpeed: 0,
+          },
+        },
+      ];
+
+      Zone.find.mockReturnValue(mockNoGoZone);
+
+      const response = await request(app)
+        .get("/api/v1/zones?type=no-go")
+        .expect(200);
+
+      expect(response.body.count).toBeGreaterThan(0);
+      response.body.zones.forEach((zone) => {
+        expect(zone.type).toBe("no-go");
+        expect(zone.rules.ridingAllowed).toBe(false);
+        expect(zone.rules.parkingAllowed).toBe(false);
+        expect(zone.rules.maxSpeed).toBe(0);
+      });
+    });
+  });
+
+  describe("Parking zones", () => {
+    it("should allow both riding and parking in parking zones", async () => {
+      const mockParkingZone = {
+        name: "Parking Center",
+        type: "parking",
+        city: "Stockholm",
+        rules: {
+          parkingAllowed: true,
+          ridingAllowed: true,
+          maxSpeed: 20,
+        },
+      };
+
+      Zone.find.mockResolvedValue([mockParkingZone]);
+
+      const response = await request(app)
+        .get("/api/v1/zones/check?latitude=59.33688&longitude=18.06352")
+        .expect(200);
+
+      expect(response.body.rules.rideAllowed).toBe(true);
+      expect(response.body.rules.parkAllowed).toBe(true);
+    });
+  });
+
+  describe("Slow-speed zones", () => {
+    it("should allow riding but enforce speed limit in slow-speed zones", async () => {
+      const mockSlowZone = {
+        name: "Slow Speed City Center",
+        type: "slow-speed",
+        city: "Stockholm",
+        rules: {
+          ridingAllowed: true,
+          maxSpeed: 10,
+        },
+      };
+
+      Zone.find.mockResolvedValue([mockSlowZone]);
+
+      const response = await request(app)
+        .get("/api/v1/zones/check?latitude=59.33625&longitude=18.0635")
+        .expect(200);
+
+      expect(response.body.rules.rideAllowed).toBe(true);
+      expect(response.body.rules.maxSpeed).toBe(10);
+    });
+  });
+});
