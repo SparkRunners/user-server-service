@@ -91,6 +91,7 @@ router.get("/zones/check", async (req, res) => {
       active: true,
     });
 
+    // outside city zone
     if (zones.length === 0) {
       return res.json({
         inZone: false,
@@ -100,18 +101,35 @@ router.get("/zones/check", async (req, res) => {
           parkAllowed: false,
           rideAllowed: false,
           maxSpeed: 0,
-          hasCharging: false
+          hasCharging: false,
+          parkingType: null,
         },
-        alert: 'Outside all zones, riding is not allowed'
+        alert: "Outside all zones, riding and parking is not allowed",
       });
     }
 
-    const parkAllowed = zones.every((zone) => zone.rules.parkingAllowed);
+    const inNoGoZone = zones.some((zone) => zone.type === "no-go");
+
+    const inParkingZone = zones.some((zone) => zone.type === "parking");
+
+    let parkAllowed;
+    let parkingType;
+
+    if (inNoGoZone) {
+      parkAllowed = false;
+      parkingType = "forbidden";
+    } else if (inParkingZone) {
+      parkAllowed = true;
+      parkingType = "designated";
+    } else {
+      parkAllowed = true;
+      parkingType = "free";
+    }
+
     const rideAllowed = zones.every((zone) => zone.rules.ridingAllowed);
     const speedLimit = zones.map((zone) => zone.rules.maxSpeed);
     const maxSpeed = Math.min(...speedLimit);
-
-    const hasCharging = zones.some(zone => zone.type === 'charging');
+    const hasCharging = zones.some((zone) => zone.type === "charging");
 
     res.json({
       inZone: true,
@@ -121,7 +139,8 @@ router.get("/zones/check", async (req, res) => {
         parkAllowed: parkAllowed,
         rideAllowed: rideAllowed,
         maxSpeed: maxSpeed,
-        hasCharging: hasCharging
+        hasCharging: hasCharging,
+        parkingType: parkingType,
       },
     });
   } catch (error) {
@@ -269,21 +288,26 @@ router.put("/zones/:id", authenticateToken, requireAdmin, async (req, res) => {
  *       404:
  *         description: Zone not found
  */
-router.delete("/zones/:id", authenticateToken, requireAdmin, async (req, res) => {
-  try {
-    const zone = await Zone.findByIdAndDelete(req.params.id);
-    
-    if (!zone) {
-      return res.status(404).json({ error: "Zone not found" });
-    }
+router.delete(
+  "/zones/:id",
+  authenticateToken,
+  requireAdmin,
+  async (req, res) => {
+    try {
+      const zone = await Zone.findByIdAndDelete(req.params.id);
 
-    res.json({
-      message: "Zone deleted",
-      zone: zone,
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+      if (!zone) {
+        return res.status(404).json({ error: "Zone not found" });
+      }
+
+      res.json({
+        message: "Zone deleted",
+        zone: zone,
+      });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+);
 
 module.exports = router;
